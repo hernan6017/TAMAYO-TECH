@@ -1209,12 +1209,29 @@
           <div>
             <h4>${p.name}</h4>
             <p>S/ ${p.price} · ${p.category}</p>
-          </div>
-          <button class="remove" onclick="deleteProduct(${p.id})">Eliminar</button>
-        </div>
+         <div style="display:flex;gap:6px">
+  <button class="remove" onclick="deleteProduct(${p.id})">Eliminar</button>
+  <button onclick="editProduct(${p.id})" style="background:#3b82f6;color:white;border:none;padding:6px 10px;border-radius:8px;cursor:pointer">
+    Editar
+  </button>
+</div>
       `).join('');
     }
+function editProduct(id) {
+  const p = products.find(prod => prod.id === id);
 
+  document.getElementById('pName').value = p.name;
+  document.getElementById('pCategory').value = p.category;
+  document.getElementById('pPrice').value = p.price;
+  document.getElementById('pOldPrice').value = p.oldPrice;
+  document.getElementById('pImage').value = p.img;
+  document.getElementById('pDesc').value = p.desc;
+  document.getElementById('pRating').value = p.rating;
+
+  deleteProduct(id);
+
+  showToast('Editando producto ✏️');
+}
     function deleteProduct(id) {
       products = products.filter(p => p.id !== id);
       saveProductsToStorage();
